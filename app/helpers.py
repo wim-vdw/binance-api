@@ -19,8 +19,7 @@ def get_timestamp():
 
 def dispatch_request(http_method, api_key):
     session = requests.Session()
-    session.headers.update(
-        {'Content-Type': 'application/json;charset=utf-8', 'X-MBX-APIKEY': api_key})
+    session.headers.update({'Content-Type': 'application/json;charset=utf-8', 'X-MBX-APIKEY': api_key})
     return {
         'GET': session.get,
         'DELETE': session.delete,
@@ -37,7 +36,7 @@ class BinanceClient:
     def send_public_request(self, endpoint, payload=None):
         if not payload:
             payload = {}
-        query_string = urlencode(payload, True)
+        query_string = urlencode(payload, doseq=True)
         url = BASE_URL + endpoint
         if query_string:
             url = url + '?' + query_string
