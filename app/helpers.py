@@ -1,6 +1,8 @@
 import hmac
 import hashlib
 import time
+import requests
+from urllib.parse import urlencode
 
 BASE_URL = 'https://api.binance.com'
 
@@ -15,13 +17,32 @@ def get_timestamp():
     return int(time.time() * 1000)
 
 
-class BinanceClient:
-    def __init__(self, api_key, api_secret):
-        self.api_key = api_key
-        self.api_secret = api_secret
+def dispatch_request(http_method, api_key):
+    session = requests.Session()
+    session.headers.update(
+        {'Content-Type': 'application/json;charset=utf-8', 'X-MBX-APIKEY': api_key})
+    return {
+        'GET': session.get,
+        'DELETE': session.delete,
+        'PUT': session.put,
+        'POST': session.post,
+    }.get(http_method, 'GET')
 
-    def to_dict(self):
-        return {
-            'api_key': self.api_key,
-            'api_secret': self.api_secret,
-        }
+
+class BinanceClient:
+    def __init__(self, api_key, secret_key):
+        self.api_key = api_key
+        self.secret_key = secret_key
+
+    def send_public_request(self, endpoint, payload=None):
+        if not payload:
+            payload = {}
+        query_string = urlencode(payload, True)
+        url = BASE_URL + endpoint
+        if query_string:
+            url = url + '?' + query_string
+        response = dispatch_request('GET', self.api_key)(url=url)
+        return response.json()
+
+    def send_signed_request(self, http_method, endpoint, payload=None):
+        pass
