@@ -14,13 +14,9 @@ def time():
     return response
 
 
-@binance_api.get('/funding')
 @binance_api.get('/funding/')
 @binance_api.get('/funding/<asset>')
 def funding(asset=None):
-    if asset:
-        param = {'asset': asset}
-    else:
-        param = {}
+    param = {'asset': asset} if asset else {}
     response = client.send_signed_request('POST', '/sapi/v1/asset/get-funding-asset', param)
     return response

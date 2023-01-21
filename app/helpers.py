@@ -48,9 +48,9 @@ class BinanceClient:
             payload = {}
         query_string = urlencode(payload, doseq=True)
         if query_string:
-            query_string = '{}&timestamp={}'.format(query_string, get_timestamp())
+            query_string = f'{query_string}&timestamp={get_timestamp()}'
         else:
-            query_string = 'timestamp={}'.format(get_timestamp())
+            query_string = f'timestamp={get_timestamp()}'
         url = BASE_URL + endpoint + '?' + query_string + '&signature=' + hashing(query_string, self.secret_key)
         params = {'url': url, 'params': {}}
         response = dispatch_request(http_method, self.api_key)(**params)
