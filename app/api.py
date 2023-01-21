@@ -10,5 +10,11 @@ client = BinanceClient(api_key=api_key, secret_key=secret_key)
 
 @binance_api.get('/time')
 def time():
-    response = client.send_public_request('/api/v3/ping')
+    response = client.send_public_request('/api/v3/time')
+    return response
+
+
+@binance_api.get('/funding')
+def funding():
+    response = client.send_signed_request('POST', '/sapi/v1/asset/get-funding-asset')
     return response

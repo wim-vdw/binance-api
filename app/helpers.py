@@ -44,4 +44,14 @@ class BinanceClient:
         return response.json()
 
     def send_signed_request(self, http_method, endpoint, payload=None):
-        pass
+        if not payload:
+            payload = {}
+        query_string = urlencode(payload, True)
+        if query_string:
+            query_string = '{}&timestamp={}'.format(query_string, get_timestamp())
+        else:
+            query_string = 'timestamp={}'.format(get_timestamp())
+        url = BASE_URL + endpoint + '?' + query_string + '&signature=' + hashing(query_string, self.secret_key)
+        params = {'url': url, 'params': {}}
+        response = dispatch_request(http_method, self.api_key)(**params)
+        return response.json()
