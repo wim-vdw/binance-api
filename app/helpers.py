@@ -46,7 +46,7 @@ class BinanceClient:
     def send_signed_request(self, http_method, endpoint, payload=None):
         if not payload:
             payload = {}
-        query_string = urlencode(payload, True)
+        query_string = urlencode(payload, doseq=True)
         if query_string:
             query_string = '{}&timestamp={}'.format(query_string, get_timestamp())
         else:
