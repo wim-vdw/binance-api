@@ -8,7 +8,7 @@ secret_key = os.environ.get('BINANCE_SECRET_KEY') or 'invalid-secret-key'
 client = BinanceClient(api_key=api_key, secret_key=secret_key)
 
 
-@binance_api.get('/time')
+@binance_api.get('/time/')
 def time():
     response = client.send_public_request('/api/v3/time')
     return response
