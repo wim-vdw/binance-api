@@ -20,3 +20,11 @@ def funding(asset=None):
     param = {'asset': asset} if asset else {}
     response = client.send_signed_request('POST', '/sapi/v1/asset/get-funding-asset', param)
     return response
+
+
+@binance_api.get('/assets/')
+@binance_api.get('/assets/<asset>')
+def assets(asset=None):
+    param = {'asset': asset} if asset else {}
+    response = client.send_signed_request('POST', '/sapi/v3/asset/getUserAsset', param)
+    return response
