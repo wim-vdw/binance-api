@@ -16,8 +16,8 @@ response = client.send_signed_request('POST', '/sapi/v1/asset/get-funding-asset'
 print(response)
 
 # Send a signed request with additional parameters.
-param = {'asset': 'BNB'}
-response = client.send_signed_request('POST', '/sapi/v1/asset/get-funding-asset', param)
+params = {'asset': 'BNB'}
+response = client.send_signed_request('POST', '/sapi/v1/asset/get-funding-asset', params)
 print(response)
 ```
 ## Build and run Rest API in Docker
