@@ -1,6 +1,6 @@
 # Binance Python client and Rest API
 ## Use Binance client in Python
-```
+```python
 from app.helpers import BinanceClient
 
 API_KEY = [your Binance API key]
@@ -21,7 +21,7 @@ response = client.send_signed_request('POST', '/sapi/v1/asset/get-funding-asset'
 print(response)
 ```
 ## Build and run Rest API in Docker
-``` 
+```shell
 $ docker build -t myapi .
 $ export BINANCE_API_KEY=[your Binance API key]
 $ export BINANCE_SECRET_KEY=[your Binance secret key]
