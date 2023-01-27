@@ -26,4 +26,6 @@ $ docker build -t myapi .
 $ export BINANCE_API_KEY=[your Binance API key]
 $ export BINANCE_SECRET_KEY=[your Binance secret key]
 $ docker run --rm --name binanceapi -p 80:80 -e BINANCE_API_KEY -e BINANCE_SECRET_KEY myapi 
+$ curl http://localhost/api/assets/
+$ curl http://localhost/api/assets/BTC
 ```
