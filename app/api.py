@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from app.helpers import BinanceClient
 import os
 
@@ -27,4 +27,18 @@ def funding(asset=None):
 def assets(asset=None):
     params = {'asset': asset} if asset else {}
     response = client.send_signed_request('POST', '/sapi/v3/asset/getUserAsset', params)
+    return response
+
+
+@binance_api.get('/generic/')
+def generic():
+    payload = request.json
+    signed = payload.get('signed', False)
+    method = payload.get('method')
+    endpoint = payload.get('endpoint')
+    params = payload.get('params', {})
+    if not signed:
+        response = client.send_public_request(endpoint, params)
+    else:
+        response = client.send_signed_request(method, endpoint, params)
     return response
