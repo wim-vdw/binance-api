@@ -1,7 +1,7 @@
 blinker==1.6.2
 certifi==2023.7.22
 charset-normalizer==3.2.0
-click==8.1.6
+click==8.1.7
 Flask==2.3.2
 gunicorn==21.2.0
 idna==3.4
@@ -12,4 +12,4 @@ packaging==23.1
 requests==2.31.0
 six==1.16.0
 urllib3==2.0.4
-Werkzeug==2.3.6
+Werkzeug==2.3.7
