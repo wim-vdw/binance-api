@@ -19,7 +19,8 @@ def time():
 def funding(asset=None):
     params = {'asset': asset} if asset else {}
     response = client.send_signed_request('POST', '/sapi/v1/asset/get-funding-asset', params)
-    return response
+    return response if not asset else \
+        (response[0] if response else ({'message': f'No funding for {asset}'}, 404))
 
 
 @binance_api.get('/assets/')
@@ -27,7 +28,8 @@ def funding(asset=None):
 def assets(asset=None):
     params = {'asset': asset} if asset else {}
     response = client.send_signed_request('POST', '/sapi/v3/asset/getUserAsset', params)
-    return response
+    return response if not asset else \
+        (response[0] if response else ({'message': f'No assets for {asset}'}, 404))
 
 
 @binance_api.get('/generic/')
